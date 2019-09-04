@@ -3,20 +3,24 @@ Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas.
 
 ### installation
 
-For now, simply clone the repository and place the package in your python path. This package should work out of the box with any environment that supports scanpy. If you are having installation issues the requirments.txt file at the root of this repository contains a list of dependencies.
+For now, simply clone the repository, make a virtual environment and then pip install to it. This will expose the cli while you are inside the virtual env.
 
 ```
 git clone https://github.com/Stuartlab-UCSC/ctwpy.git
 cd ctwpy
-export PYTHONPATH=$PYTHONPATH:$(pwd)
+virtualenv env
+. env/bin/activate
+pip install --editable .
 ```
 
 ### Command Line Interface
 ```
 # Check out the help documentation:
-ctwpy --help
+ctw-from-scanpy --help
 
-ctwpy from-scanpy --help
+ctw-upload --help
+
+
 
 # Create a Cell Type Worksheet formated file from a scanpy object.
 ctwpy from-scanpy dataset-filename.h5ad 
