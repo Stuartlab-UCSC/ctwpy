@@ -1,7 +1,28 @@
 # ctwpy
 Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas.
 
+### What is a Cell Type Worksheet?
+A Cell Type Worksheet is an application designed to ease the burden of manual cell type annotation from single cell
+mRNA sequencing experiments. It lets you explore the specificity of markers across clusters and label the clusters
+with a cell type annotation.
+
+The web application provides three interactive components for this goal:
+
+1. An editable dot plot visualizing marker specificity and cell type annotation across all clusters.
+2. A scatter plot visualizing gene expression across all cells.
+3. A table of gene metric rankings per cluster.
+
+Here's what the layout looks like
+![Alt text](cell_atlas_layout.png)
+
+This python package helps to get your data into the correct format, and upload the data to the server
+so it can be viewed on the web app.
+
 ### Install
+
+If you haven't done so already, head over to the [Cell Atlas registry](https://cellatlasapi.ucsc.edu/user/register)
+and make an account, remember to answer the confirmation email. You'll be using your email and password to upload
+data to the server.
 
 You'll need [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/) installed on your machine.
 
@@ -31,8 +52,12 @@ ctw-from-scanpy --help
 ctw-upload --help
 
 # Create a Cell Type Worksheet formated file from a scanpy object.
-ctw-from-scanpy dataset-filename.h5ad 
+ctw-from-scanpy worksheet-name dataset-filename.h5ad
 
 # Send the created Cell Type Worksheet to the UCSC Cell Atlas
-ctw-upload dataset-filename.ctw.tar.gz credentials.json
+ctw-upload worksheet-name.ctw.tar.gz credentials.json
 ```
+
+To upload a worksheet to the server, you'll notice the credentials.json file is necessary. Use our
+[example](https://github.com/Stuartlab-UCSC/ctwpy/blob/master/credentials.json) for a starting
+place.
