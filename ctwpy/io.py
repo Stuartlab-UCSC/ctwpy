@@ -9,7 +9,7 @@ import os
 import gzip
 import json
 import pandas as pd
-
+from ctwpy.marker_table import DEFAULT_LEGEND_METRICS
 import ctwpy.filenames as filenames
 from shutil import rmtree
 
@@ -79,12 +79,18 @@ def read_json_gzipd(path):
     return data
 
 
-def write_all_worksheet(worksheet_root, markers=None, xys=None, exp=None, clustering=None, celltype=None):
+def write_all_worksheet(
+        worksheet_root,
+        markers=None, xys=None, exp=None,
+        clustering=None, celltype=None,
+        dotplot_size_color=DEFAULT_LEGEND_METRICS
+):
     write_df(worksheet_root, exp, filenames.EXPRESSION)
     write_df(worksheet_root, markers_manip(markers), filenames.MARKER_TABLE)
     write_df(worksheet_root, xys, filenames.XYS)
     write_df(worksheet_root, clustering, filenames.CLUSTERING)
     write_df(worksheet_root, celltype, filenames.CELL_TYPE_ANNOTATION)
+    write_df(worksheet_root, dotplot_size_color, filenames.CELL_TYPE_ANNOTATION)
 
 
 def is_valid_file(tarsfilename):

@@ -90,3 +90,5 @@ def run_pipe(ad, cluster_solution_name="louvain", use_raw=True):
 
     markers_table = pd.concat(dfs, axis=0)
     return markers_table
+
+DEFAULT_LEGEND_METRICS = pd.Series(["tstat", "zstat", "pct.exp"])
