@@ -16,6 +16,7 @@ import ctwpy.scanpyapi as ad_obj
 import tarfile
 import os
 
+
 @click.command(help="Add a scanpy object to the user file system")
 @click.argument('worksheet_name')
 @click.argument('scanpy_path')
@@ -28,14 +29,22 @@ def from_scanpy(worksheet_name, scanpy_path, cluster_name,
     ad = ad_obj.readh5ad(scanpy_path)
     print("Attempt to gather cell type mapping")
     mapping = ad_obj.celltype_mapping(ad, cluster_name, celltype_key)
-    print("Mapping preview:", mapping.head())
+
+    if mapping is None:
+        print("No Cell Type Mapping Found")
+    else:
+        print("Mapping Found: preview:", mapping.head())
+
     use_raw = ad_obj.has_raw(ad)
     xys = ad_obj.get_xys(ad, key="X_umap")
 
     print("Running marker generation")
-    markers_df = run_pipe(ad, cluster_name)
 
     clustering = ad_obj.get_obs(ad, cluster_name)
+
+
+    markers_df = run_pipe(ad, cluster_name)
+
 
     exp = ad_obj.get_expression(ad, use_raw)
 
