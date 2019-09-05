@@ -4,8 +4,31 @@ import pandas as pd
 import numpy as np
 from scipy.sparse.csr import csr_matrix
 
+def n_clusters(adata, cluster_solution_name):
+    return len(adata.obs[cluster_solution_name].unique().dropna())
 
-def proportion_expressed_cluster(adata, clustering, use_raw):
+
+def get_expression(adata, use_raw=True):
+    """Grab expression and put into pandas dataframe."""
+    if use_raw:
+        ad = adata.raw
+    else:
+        ad = adata
+
+    if isinstance(ad.X, csr_matrix):
+        df = pd.DataFrame(ad.X.toarray(), index=ad.obs_names, columns=ad.var_names)
+    else:
+        df = pd.DataFrame(ad.X, index=ad.obs_names, columns=ad.var_names)
+
+    return df.transpose()
+
+
+def std_gt_0_genes(centroids):
+    """returns genes that have std > 0"""
+    return centroids.index[(centroids.std(axis=1) != 0).tolist()]
+
+
+def proportion_expressed_cluster(adata, clustering, use_raw=True):
     """
     outputs a dataframe [genes x cluster] that is the percentage that gene is expressed in a cluster
     :param ad: scanpy.Anndata

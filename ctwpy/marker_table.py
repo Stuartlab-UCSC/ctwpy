@@ -8,26 +8,6 @@ import numpy as np
 from ctwpy.scanpyapi import proportion_expressed_cluster, centroids, get_expression, std_gt_0_genes
 
 
-def get_expression(adata, use_raw=False):
-    """Grab expression and put into pandas dataframe."""
-    if use_raw:
-        ad = adata.raw
-    else:
-        ad = adata
-
-    if isinstance(ad.X, csr_matrix):
-        df = pd.DataFrame(ad.X.toarray(), index=ad.obs_names, columns=ad.var_names)
-    else:
-        df = pd.DataFrame(ad.X, index=ad.obs_names, columns=ad.var_names)
-
-    return df.transpose()
-
-
-def std_gt_0_genes(centroids):
-    """returns genes that have std > 0"""
-    return centroids.index[(centroids.std(axis=1) != 0).tolist()]
-
-
 def run_pipe(ad, cluster_solution_name="louvain", use_raw=True):
     """Returns a markers table from an anndata object. Looks for anndata.raw to
     make metrics directly from counts. If .raw is not there then proceeds with whatever is in anndata.expression_matrix.
@@ -43,27 +23,31 @@ def run_pipe(ad, cluster_solution_name="louvain", use_raw=True):
     cluster_solution = cluster_solution.dropna()
     clusters = cluster_solution.unique()
 
-    proportions = proportion_expressed_cluster(ad, cluster_solution)
+    print("Calculating centroids and proportions of %d samples and %d genes with %d clusters" % (
         expression_matrix.shape[0], expression_matrix.shape[1], len(clusters)
     ))
-    centroids = pd.DataFrame(index=expression_matrix.columns, columns=clusters)
-    for cluster_name in clusters:
-        cell_names = cluster_solution.index[(cluster_solution == cluster_name).tolist()]
-        centroid = expression_matrix.loc[cell_names].mean(axis=0)
-        centroids[cluster_name] = centroid
+    proportions = proportion_expressed_cluster(ad, cluster_solution)
+    centroid_df = centroids(ad, cs_name=cluster_solution_name, use_raw=True)
+
+
 
     # Filter to genes that have some standard deviation across thier means
     # Weak filtering intended to prevent downstream errors.
-    marker_genes = std_gt_0_genes(centroids)
+    marker_genes = std_gt_0_genes(centroid_df)
+    print(
+        "Removing %d genes because standard deviation across means is 0"
+        % (expression_matrix.shape[1] - len(marker_genes))
+    )
     expression_matrix = expression_matrix[marker_genes]
 
-    print("Calculating metrics for %d genes" % len(marker_genes))
     # Current implementation builds one dataframe for each cluster and then concats them together.
     dfs = []
     for cluster_name in clusters:
-        print("Cluster ", cluster_name)
-        df = pd.DataFrame(index=expression_matrix.columns,
-                          columns=["tstat", "zstat", "log2fc", "zpval", "tpval", "cluster"])
+        print("Calculating Cluster ", cluster_name)
+        df = pd.DataFrame(
+            index=expression_matrix.columns,
+            columns=["tstat", "zstat", "pct.exp", "log2fc", "zpval", "tpval", "cluster"]
+        )
         df['cluster'] = cluster_name
 
         cell_names = cluster_solution.index[(cluster_solution == cluster_name).tolist()]
@@ -101,6 +85,7 @@ def run_pipe(ad, cluster_solution_name="louvain", use_raw=True):
         df["zpval"] = zpval
         df['gene'] = df.index.tolist()
         df['pct.exp'] = proportions[cluster_name][df.index]
+
         dfs.append(df)
 
     markers_table = pd.concat(dfs, axis=0)
