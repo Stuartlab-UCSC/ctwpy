@@ -4,6 +4,8 @@ Functions for interacting with the UCSC Cell Atlas API.
 import requests
 from bs4 import BeautifulSoup
 from ctwpy.io import read_json
+from requests_toolbelt.multipart import encoder
+import os
 
 
 def read_credentials(creds_path):
@@ -22,6 +24,13 @@ def upload(ctw_path, credentials, url_base="http://localhost:5555/"):
     credentials.update({"csrf_token": token})
     r = session.post(login_url, data=credentials)
     print("Successful login...")
+    worksheet_name = os.path.basename(ctw_path.split(".ctw.")[0])
+    upload_url = url_base + "user/worksheet/" + worksheet_name
+    form = encoder.MultipartEncoder({
+        "documents": (os.path.basename(ctw_path), open(ctw_path, "rb"), "application/octet-stream"),
+        "composite": "NONE",
+    })
+    print(form.content_type)
+    headers = {"Prefer": "respond-async", "Content-Type": form.content_type}
 
-    r2 = session.get(url_base + "user/worksheets")
-
+    session.post(upload_url, headers=headers, data=form)

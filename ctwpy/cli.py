@@ -47,14 +47,14 @@ def from_scanpy(worksheet_name, scanpy_path, cluster_name,
     make_tarfile(ctw_filename, source_dir=worksheet_name)
     delete_dir(worksheet_name)
 
+
 @click.command(help="Upload a worksheet to the UCSC Cell Atlas")
 @click.argument('ctw_path')
 @click.argument('credentials_path')
 def upload_worksheet(ctw_path, credentials_path):
-    from ctwpy.webapi import upload
-    from ctwpy.io import read_json
-    credentials = read_json(credentials_path)
-    upload(None, credentials)
+    from ctwpy.webapi import upload, read_credentials
+    credentials = read_credentials(credentials_path)
+    upload(ctw_path, credentials)
 
 
 def make_tarfile(output_filename, source_dir):
