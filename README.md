@@ -12,11 +12,10 @@ The web application provides three interactive components for this goal:
 2. A scatter plot visualizing gene expression across all cells.
 3. A table of gene metric rankings per cluster.
 
-Here's what the layout looks like
+Here's a rough visual of the layout of the application, the gene metrics are explored via the table at the bottom.
 ![Alt text](cell_atlas_layout.png)
 
-This python package helps to get your data into the correct format, and upload the data to the server
-so it can be viewed on the web app.
+This python package helps to get data into the ctw format and upload the worksheet to the server.
 
 ### Install
 
