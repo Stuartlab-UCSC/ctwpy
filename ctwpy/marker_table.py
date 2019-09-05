@@ -5,7 +5,7 @@ from statsmodels.stats.proportion import proportions_ztest
 from scipy.stats import ttest_ind
 import pandas as pd
 import numpy as np
-from scipy.sparse.csr import csr_matrix
+from ctwpy.scanpyapi import proportion_expressed_cluster, centroids, get_expression, std_gt_0_genes
 
 
 def get_expression(adata, use_raw=False):
@@ -43,7 +43,7 @@ def run_pipe(ad, cluster_solution_name="louvain", use_raw=True):
     cluster_solution = cluster_solution.dropna()
     clusters = cluster_solution.unique()
 
-    print("Calculating centroids of %d samples and %d genes with %d clusters" % (
+    proportions = proportion_expressed_cluster(ad, cluster_solution)
         expression_matrix.shape[0], expression_matrix.shape[1], len(clusters)
     ))
     centroids = pd.DataFrame(index=expression_matrix.columns, columns=clusters)
@@ -100,6 +100,7 @@ def run_pipe(ad, cluster_solution_name="louvain", use_raw=True):
         df["zstat"] = zstat
         df["zpval"] = zpval
         df['gene'] = df.index.tolist()
+        df['pct.exp'] = proportions[cluster_name][df.index]
         dfs.append(df)
 
     markers_table = pd.concat(dfs, axis=0)
