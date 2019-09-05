@@ -10,8 +10,9 @@ import gzip
 import json
 import pandas as pd
 
-import ctwpy.filenames as keys
+import ctwpy.filenames as filenames
 from shutil import rmtree
+
 
 def make_dir_or_complain(ctw_path):
     try:
@@ -19,11 +20,15 @@ def make_dir_or_complain(ctw_path):
     except FileExistsError as BadAttemptToOverwrite:
         raise FileExistsError("Attempted to overwrite %s " % ctw_path)
 
+
 def delete_dir(ctw_path):
     rmtree(ctw_path)
 
+
 def write_df(path_root, df, type_key):
     """Write a pandas data frame as a pickle."""
+    if df is None:
+        return None
     path = os.path.join(path_root, type_key)
     df.to_pickle(path, protocol=4)
 
@@ -64,6 +69,7 @@ def read_json(path):
         data = json.load(json_file)
     return data
 
+
 def read_json_gzipd(path):
     with gzip.GzipFile(path, 'r') as fin:
         json_bytes = fin.read()
@@ -74,15 +80,15 @@ def read_json_gzipd(path):
 
 
 def write_all_worksheet(worksheet_root, markers=None, xys=None, exp=None, clustering=None, celltype=None):
-    write_df(worksheet_root, exp, keys.EXPRESSION)
-    write_df(worksheet_root, markers_manip(markers), keys.MARKER_TABLE)
-    write_df(worksheet_root, xys, keys.XYS)
-    write_df(worksheet_root, clustering, keys.CLUSTERING)
-    write_df(worksheet_root, celltype, keys.CELL_TYPE_ANNOTATION)
+    write_df(worksheet_root, exp, filenames.EXPRESSION)
+    write_df(worksheet_root, markers_manip(markers), filenames.MARKER_TABLE)
+    write_df(worksheet_root, xys, filenames.XYS)
+    write_df(worksheet_root, clustering, filenames.CLUSTERING)
+    write_df(worksheet_root, celltype, filenames.CELL_TYPE_ANNOTATION)
 
 
 def is_valid_file(tarsfilename):
-    for key in keys.all_filenames:
+    for key in filenames:
         if key in tarsfilename:
             return True
     return False
@@ -90,7 +96,7 @@ def is_valid_file(tarsfilename):
 
 def name_transform(filename):
     """Returns the filename constant that was found in a filename."""
-    for key in fname_keys:
+    for key in filenames:
         if key in filename:
             return key
     raise ValueError("The file name could not be transformed into a valid filename constant")
