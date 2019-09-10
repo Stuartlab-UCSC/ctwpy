@@ -46,7 +46,7 @@ def run_pipe(ad, cluster_solution_name="louvain", use_raw=True):
         print("Calculating Cluster ", cluster_name)
         df = pd.DataFrame(
             index=expression_matrix.columns,
-            columns=["tstat", "zstat", "pct.exp", "log2fc", "zpval", "tpval", "cluster"]
+            columns=["tstat", "pct.exp", "zstat", "log2fc", "zpval", "tpval", "cluster"]
         )
         df['cluster'] = cluster_name
 
