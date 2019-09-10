@@ -10,6 +10,7 @@ wrap create_app with the @command_line_interface decorator
 to add another cli write a click.command() function and add the function name into CLICK_COMMANDS (at bottom of file)
 """
 import click
+from ctwpy.webapi import upload, read_credentials
 from ctwpy.io import make_dir_or_complain, write_all_worksheet, delete_dir
 from ctwpy.marker_table import run_pipe
 import ctwpy.scanpyapi as ad_obj
@@ -60,10 +61,12 @@ def from_scanpy(worksheet_name, scanpy_path, cluster_name,
 @click.command(help="Upload a worksheet to the UCSC Cell Atlas")
 @click.argument('ctw_path')
 @click.argument('credentials_path')
-def upload_worksheet(ctw_path, credentials_path):
-    from ctwpy.webapi import upload, read_credentials
+@click.option('--group', "-g", default=None, help="A valid group name for the ctw server.")
+@click.option('--url', "-u", default="https://cellatlasapi.ucsc.edu/",
+              help="Only replace this if you are running your own ctw server.")
+def upload_worksheet(ctw_path, credentials_path, url="https://cellatlasapi.ucsc.edu/", group=None):
     credentials = read_credentials(credentials_path)
-    upload(ctw_path, credentials)
+    upload(ctw_path, credentials, url, group)
 
 
 def make_tarfile(output_filename, source_dir):
