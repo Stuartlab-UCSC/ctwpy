@@ -21,8 +21,10 @@ import os
 @click.command(help="Add a scanpy object to the user file system")
 @click.argument('worksheet_name')
 @click.argument('scanpy_path')
-@click.option('--cluster_name', default="louvain")
-@click.option('--celltype_key', default="scorect")
+@click.option('--cluster_name', default="louvain",
+              help="The name of the key to the clustering solution in the scanpy object, defaults to 'louvain'.")
+@click.option('--celltype_key', default="scorect",
+              help="The name of the key to the cell type annotation in the scanpy object, defaults to 'scorect'.")
 def from_scanpy(worksheet_name, scanpy_path, cluster_name,
                 celltype_key=None
 ):
