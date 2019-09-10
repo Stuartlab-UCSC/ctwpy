@@ -15,7 +15,7 @@ The web application provides three interactive components for this goal:
 Here's a rough visual of the layout of the application, the gene metrics are explored via the table at the bottom.
 ![Alt text](cell_atlas_layout.png)
 
-This python package helps to get data into the ctw format and upload the worksheet to the server.
+This python package manipulates a scanpy object into the ctw format and provides an avenue for uploading a worksheet to the UCSC Cell Atlas.
 
 ### Install
 
@@ -53,8 +53,8 @@ ctw-upload --help
 # Create a Cell Type Worksheet formated file from a scanpy object.
 ctw-from-scanpy worksheet-name dataset-filename.h5ad
 
-# Send the created Cell Type Worksheet to the UCSC Cell Atlas
-ctw-upload worksheet-name.ctw.tar.gz credentials.json
+# Send the created Cell Type Worksheet to the UCSC Cell Atlas.
+ctw-upload worksheet-name.ctw.tgz credentials.json
 ```
 
 To upload a worksheet to the server, you'll notice the credentials.json file is necessary. Use our
