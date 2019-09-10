@@ -60,7 +60,9 @@ def from_scanpy(worksheet_name, scanpy_path, cluster_name,
     delete_dir(worksheet_name)
 
 
-@click.command(help="Upload a worksheet to the UCSC Cell Atlas")
+@click.command(
+    help="""Upload a worksheet to the UCSC Cell Atlas. Requires a credentials.json file filled with login info.
+    Read the bottom of the README.md of the git repository.""")
 @click.argument('ctw_path')
 @click.argument('credentials_path')
 @click.option('--group', "-g", default=None, help="A valid group name for the ctw server.")
