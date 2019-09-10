@@ -76,14 +76,9 @@ def make_tarfile(output_filename, source_dir):
         tar.add(source_dir, arcname=os.path.basename(source_dir))
 
 
-@click.command(help="See the keys for observation matrix")
+@click.command(help="See the keys for the observation matrix")
 @click.argument('scanpy_path')
 def scanpy_obs(scanpy_path):
     ad = ad_obj.readh5ad(scanpy_path)
     print(ad.obs_keys())
-
-
-@click.command()
-def bye():
-    click.echo('Bye World!')
 
