@@ -90,7 +90,7 @@ def write_all_worksheet(
     write_df(worksheet_root, xys, filenames.XYS)
     write_df(worksheet_root, clustering, filenames.CLUSTERING)
     write_df(worksheet_root, celltype, filenames.CELL_TYPE_ANNOTATION)
-    write_df(worksheet_root, dotplot_size_color, filenames.CELL_TYPE_ANNOTATION)
+    write_df(worksheet_root, dotplot_size_color, filenames.DOTPLOT_SIZE_COLOR_METRICS)
 
 
 def is_valid_file(tarsfilename):
