@@ -6,7 +6,8 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'Click', "scanpy>1", "scipy", "pandas", "beautifulsoup4", "requests", "requests_toolbelt", "urllib3=1.24.2"
+        'Click', "scanpy>1", "scipy", "pandas", 
+        "beautifulsoup4", "requests", "requests_toolbelt", "urllib3==1.24.2"
     ],
     entry_points='''
         [console_scripts]
