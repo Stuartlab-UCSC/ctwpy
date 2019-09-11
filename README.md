@@ -23,21 +23,21 @@ If you haven't done so already, head over to the [Cell Atlas registry](https://c
 and make an account, remember to answer the confirmation email. You'll be using your email and password to upload
 data to the server.
 
-You'll need [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/) installed on your machine.
+You'll need python3.4+, [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/) installed on your machine.
 
 Clone the repository and make a virtual environment.
 ```
 git clone https://github.com/Stuartlab-UCSC/ctwpy.git
 cd ctwpy
-# Create a virtual environment to install the package in.
-virtualenv env
+# Create a python3 virtual environment to install the package in.
+virtualenv -p $(which python3) env
 ```
- Once inside your virtual environment use pip to install dependencies.
+ Once inside your virtual environment use pip3 to install dependencies.
 ```
 # Enter virtual environment
 source env/bin/activate
 # Use pip to install
-pip install --editable .
+pip3 install --editable .
 ```
 Now you'll be able to access the applications command line interface. The command line interface is available anytime you enter the environment.
 ### Command Line Interface
