@@ -1,13 +1,5 @@
 """
-cli exposed via flask *function-name
-
-wrap create_app with the @command_line_interface decorator
-
-`export FLASK_APP=cluster` is necessary.
-
-`flask --help` to show available functions
-
-to add another cli write a click.command() function and add the function name into CLICK_COMMANDS (at bottom of file)
+cli exposed via flask
 """
 import click
 from ctwpy.webapi import upload, read_credentials

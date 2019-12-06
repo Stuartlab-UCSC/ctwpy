@@ -50,7 +50,7 @@ ctw-from-scanpy --help
 
 ctw-upload --help
 
-# Create a Cell Type Worksheet formated file from a scanpy object.
+# Create a Cell Type Worksheet formatted file from a scanpy object.
 ctw-from-scanpy worksheet-name dataset-filename.h5ad
 
 # Send the created Cell Type Worksheet to the UCSC Cell Atlas.
