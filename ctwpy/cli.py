@@ -52,19 +52,6 @@ def from_scanpy(worksheet_name, scanpy_path, cluster_name,
     delete_dir(worksheet_name)
 
 
-@click.command(
-    help="""Upload a worksheet to the UCSC Cell Atlas. Requires a credentials.json file filled with login info.
-    Read the bottom of the README.md of the git repository.""")
-@click.argument('ctw_path')
-@click.argument('credentials_path')
-@click.option('--group', "-g", default=None, help="A valid group name for the ctw server.")
-@click.option('--url', "-u", default="https://cellatlasapi.ucsc.edu/",
-              help="Only replace this if you are running your own ctw server.")
-def upload_worksheet(ctw_path, credentials_path, url="https://cellatlasapi.ucsc.edu/", group=None):
-    credentials = read_credentials(credentials_path)
-    upload(ctw_path, credentials, url, group)
-
-
 def make_tarfile(output_filename, source_dir):
     with tarfile.open(output_filename, "w:gz") as tar:
         tar.add(source_dir, arcname=os.path.basename(source_dir))
