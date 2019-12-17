@@ -10,7 +10,7 @@ def make_tarfile(output_filename, source_dir):
         tar.add(source_dir, arcname=os.path.basename(source_dir))
 
 
-scanpy_ingest(ad, worksheet_name, cluster_name, celltype_key)
+def scanpy_ingest(ad, worksheet_name, cluster_name, celltype_key):
     print("Attempt to gather cell type mapping")
     mapping = ad_obj.celltype_mapping(ad, cluster_name, celltype_key)
 

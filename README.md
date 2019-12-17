@@ -1,5 +1,6 @@
 # ctwpy
-Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas.
+Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas from a scanpy anndata
+object.
 
 ### What is a Cell Type Worksheet?
 A Cell Type Worksheet is an application designed to ease the burden of manual cell type annotation from single cell
@@ -17,13 +18,14 @@ Here's a rough visual of the layout of the application, the gene metrics are exp
 
 This python package manipulates a scanpy object into the ctw format and provides an avenue for uploading a worksheet to the UCSC Cell Atlas.
 
+### Requirements
+python3.4+[git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
+
 ### Install
 
 If you haven't done so already, head over to the [Cell Atlas registry](https://cellatlasapi.ucsc.edu/user/register)
 and make an account, remember to answer the confirmation email. You'll be using your email and password to upload
 data to the server.
-
-You'll need python3.4+, [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/) installed on your machine.
 
 Clone the repository and make a virtual environment.
 ```
