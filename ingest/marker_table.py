@@ -5,7 +5,7 @@ from statsmodels.stats.proportion import proportions_ztest
 from scipy.stats import ttest_ind
 import pandas as pd
 import numpy as np
-from ctwpy.scanpyapi import proportion_expressed_cluster, centroids, get_expression, std_gt_0_genes
+from ingest.scanpyapi import proportion_expressed_cluster, centroids, get_expression, std_gt_0_genes
 
 
 def scale_centroids(centers, max=2.5, min=-2.5):

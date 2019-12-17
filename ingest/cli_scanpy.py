@@ -2,10 +2,9 @@
 cli exposed via flask
 """
 import click
-from ctwpy.webapi import upload, read_credentials
-from ctwpy.io import make_dir_or_complain, write_all_worksheet, delete_dir
-from ctwpy.marker_table import run_pipe
-import ctwpy.scanpyapi as ad_obj
+from ingest.webapi import upload, read_credentials
+from ingest.scanpy_ingest import scanpy_ingest
+import ingest.scanpyapi as ad_obj
 import tarfile
 import os
 
@@ -22,34 +21,7 @@ def from_scanpy(worksheet_name, scanpy_path, cluster_name,
 ):
     print("reading in data...")
     ad = ad_obj.readh5ad(scanpy_path)
-    print("Attempt to gather cell type mapping")
-    mapping = ad_obj.celltype_mapping(ad, cluster_name, celltype_key)
-
-    if mapping is None:
-        print("No Cell Type Mapping Found")
-    else:
-        print("Mapping Found: preview:", mapping.head())
-
-    use_raw = ad_obj.has_raw(ad)
-    xys = ad_obj.get_xys(ad, key="X_umap")
-
-    print("Running marker generation")
-
-    clustering = ad_obj.get_obs(ad, cluster_name)
-
-
-    markers_df = run_pipe(ad, cluster_name)
-
-
-    exp = ad_obj.get_expression(ad, use_raw)
-
-    # Make the directory to tar up later.
-    make_dir_or_complain(worksheet_name)
-    write_all_worksheet(worksheet_name, xys=xys, exp=exp, clustering=clustering, markers=markers_df, celltype=mapping)
-
-    ctw_filename = "%s.ctw.tgz" % worksheet_name
-    make_tarfile(ctw_filename, source_dir=worksheet_name)
-    delete_dir(worksheet_name)
+    scanpy_to_ingest_format(ad, worksheet_name, cluster_name, celltype_key)
 
 
 @click.command(

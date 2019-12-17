@@ -9,8 +9,8 @@ import os
 import gzip
 import json
 import pandas as pd
-from ctwpy.marker_table import DEFAULT_LEGEND_METRICS
-import ctwpy.filenames as filenames
+from ingest.marker_table import DEFAULT_LEGEND_METRICS
+import ingest.filenames as filenames
 from shutil import rmtree
 
 
