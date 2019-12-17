@@ -57,8 +57,6 @@ ctw-from-scanpy worksheet-name dataset-filename.h5ad
 ctw-upload worksheet-name.ctw.tgz credentials.json
 ```
 
-To upload this worksheet data to the server, go to http://https://cellatlas.ucsc.edu/cell-type, 
-log in, open the menu in the upper left and select "Upload Data".
-
-If you do not have an account yet, you may create one by clicking on "Sign in" in the upper 
-right of the screen. Then click on "Register".
+To upload a worksheet to the server, you'll notice the credentials.json file is necessary. Use our
+[example](https://github.com/Stuartlab-UCSC/ctwpy/blob/master/credentials.json) for a starting
+place.
