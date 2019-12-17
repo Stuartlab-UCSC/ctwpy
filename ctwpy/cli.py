@@ -2,6 +2,7 @@
 cli exposed via flask
 """
 import click
+from ctwpy.webapi import upload, read_credentials
 from ctwpy.io import make_dir_or_complain, write_all_worksheet, delete_dir
 from ctwpy.marker_table import run_pipe
 import ctwpy.scanpyapi as ad_obj
