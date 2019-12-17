@@ -3,7 +3,6 @@ import anndata
 import pandas as pd
 import numpy as np
 from scipy.sparse.csr import csr_matrix
-from ingest.io import make_dir_or_complain, write_all_worksheet, delete_dir
 
 def n_clusters(adata, cluster_solution_name):
     return len(adata.obs[cluster_solution_name].unique().dropna())
@@ -166,35 +165,3 @@ def prefixed(strlist, prefix):
     :return: a subset of the original list to values only beginning with the prefix string
     """
     return [g for g in strlist if str(g).startswith(prefix)]
-
-
-def scanpy_to_ingest_format(ad, worksheet_name, cluster_name, celltype_key=None)
-
-    print("Attempt to gather cell type mapping")
-    mapping = ad_obj.celltype_mapping(ad, cluster_name, celltype_key)
-
-    if mapping is None:
-        print("No Cell Type Mapping Found")
-    else:
-        print("Mapping Found: preview:", mapping.head())
-
-    use_raw = ad_obj.has_raw(ad)
-    xys = ad_obj.get_xys(ad, key="X_umap")
-
-    print("Running marker generation")
-
-    clustering = ad_obj.get_obs(ad, cluster_name)
-
-
-    markers_df = run_pipe(ad, cluster_name)
-
-
-    exp = ad_obj.get_expression(ad, use_raw)
-
-    # Make the directory to tar up later.
-    make_dir_or_complain(worksheet_name)
-    write_all_worksheet(worksheet_name, xys=xys, exp=exp, clustering=clustering, markers=markers_df, celltype=mapping)
-
-    ctw_filename = "%s.ctw.tgz" % worksheet_name
-    make_tarfile(ctw_filename, source_dir=worksheet_name)
-    delete_dir(worksheet_name)
