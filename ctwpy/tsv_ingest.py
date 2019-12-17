@@ -1,7 +1,7 @@
 
-from ingest.io import make_dir_or_complain, write_all_worksheet, delete_dir
-from ingest.marker_table import run_pipe
-import ingest.scanpyapi as ad_obj
+from ctwingest.io import make_dir_or_complain, write_all_worksheet, delete_dir
+from ctwingest.marker_table import run_pipe
+import ctwingest.scanpyapi as ad_obj
 import tarfile
 
 

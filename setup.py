@@ -6,14 +6,13 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'Click', "scanpy==1.3.7", "scipy", "pandas",
-        "beautifulsoup4", "requests", "requests_toolbelt", "urllib3==1.24.2"
+        'Click', "ctwingest"
     ],
     entry_points='''
         [console_scripts]
-        ctw-scanpy-obs=ingest.cli:scanpy_obs
-        ctw-from-scanpy=ingest.cli:from_scanpy
-        ctw-from-tsv=ingest.cli:from_tsv
-        ctw-upload=ingest.cli:upload_worksheet
+        ctw-scanpy-obs=ctwpy.cli:scanpy_obs
+        ctw-from-scanpy=ctwpy.cli:from_scanpy
+        ctw-from-tsv=ctwpy.cli:from_tsv
+        ctw-upload=ctwpy.cli:upload_worksheet
     ''',
 )

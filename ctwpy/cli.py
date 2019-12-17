@@ -2,9 +2,9 @@
 cli exposed via flask
 """
 import click
-from ingest.webapi import upload, read_credentials
-import ingest.scanpyapi as ad_obj
-from ingest.scanpy_ingest import scanpy_ingest
+from ctwingest.webapi import upload, read_credentials
+import ctwingest.scanpyapi as ad_obj
+from ctwingest.scanpy_ingest import scanpy_ingest
 from ingest.tsv_ingest import tsv_ingest
 import os
 

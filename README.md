@@ -19,7 +19,8 @@ The web application provides three interactive components for this goal:
 Here's a rough visual of the layout of the application, the gene metrics are explored via the table at the bottom.
 ![Alt text](cell_atlas_layout.png)
 
-This python package manipulates a scanpy object into the ctw format and provides an avenue for uploading a worksheet to the UCSC Cell Atlas.
+This python package manipulates a scanpy object or tsv files into the ctw format 
+and provides an avenue for uploading a worksheet to the UCSC Cell Atlas.
 
 ### Requirements
 python3.4+[git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
@@ -41,7 +42,9 @@ virtualenv -p $(which python3) env
 ```
 # Enter virtual environment
 source env/bin/activate
-# Use pip to install
+# Use pip to install the ctwingest dependency
+pip3 install --editable git+git://github.com/Stuartlab-UCSC/ctwingest.git#egg=ctwingest
+# Use pip to install this package
 pip3 install --editable .
 ```
 Now you'll be able to access the applications command line interface. The command line interface is available anytime you enter the environment.
@@ -152,17 +155,3 @@ optional files:
      + Last column contains cell types
      + cell_type values are optional
      + If this file is omitted, cell counts will be summed for you and clusters will have no cell_types
-     
-### Contributors to ctwpy
-This repository should be kept in sync with its counterpart: ctw-seurat. There are two 
-repositories because ctw-seurat requires R to be installed before installing the package. 
-Someone only interested in scanpy may not have R installed.
-
-The only files in the repositories that should differ:
- ```
- ingest/cli.py
- ingest/seurat_api.py (only exists in ctw-seurat)
- ingest/tsv_ingest.py (only exists in ctwpy)
- README.md
- setup.py
-``` 
