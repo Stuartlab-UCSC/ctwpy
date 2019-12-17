@@ -69,9 +69,9 @@ repositories because ctw-seurat requires R to be installed before installing the
 Someone only interested in scanpy may not have R installed.
 
 The only files in the repositories that should differ:
- 
+ ```
  ingest/cli.py
  ingest/seurat_api.py (only exists in ctw-seurat)
  README.md
  setup.py
- 
+``` 
