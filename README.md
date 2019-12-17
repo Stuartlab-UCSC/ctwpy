@@ -62,3 +62,16 @@ ctw-upload worksheet-name.ctw.tgz credentials.json
 To upload a worksheet to the server, you'll notice the credentials.json file is necessary. Use our
 [example](https://github.com/Stuartlab-UCSC/ctwpy/blob/master/credentials.json) for a starting
 place.
+
+### Contributors to ctwpy
+This repository should be kept in sync with its counterpart: ctw-seurat. There are two 
+repositories because ctw-seurat requires R to be installed before installing the package. 
+Someone only interested in scanpy may not have R installed.
+
+The only files in the repositories that should differ:
+ 
+ ingest/cli.py
+ ingest/seurat_api.py (only exists in ctw-seurat)
+ README.md
+ setup.py
+ 
