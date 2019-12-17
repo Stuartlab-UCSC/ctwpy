@@ -124,7 +124,7 @@ optional files:
      + First column contains cell IDs
      + Second Column contains x coordinates
      + Third Column contains y coordinates
-=     
+    
 4. Gene Metrics Per Cluster (optional)
 
 |  gene  | t-statistic | pct.exp | avg.exp.scaled | ... | cluster |
@@ -145,7 +145,7 @@ optional files:
 5. Cluster cell counts and cell types (optional)
 
 | cluster | cell_count | cell_type |
-|:--------:|:------------:|--------------------------------- ||
+|:--------:|:------------:|--------------------------------- |
 | 1 |         5313 |         T-cell |
 | 2 |         2562 | |
 | ... | | |
