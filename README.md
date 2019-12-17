@@ -152,6 +152,7 @@ optional files:
 
      + File name is "clusters.tsv"
      + First column contains cluster IDs
+     + Second column contains the cell counts
      + Last column contains cell types
      + cell_type values are optional
      + If this file is omitted, cell counts will be summed for you and clusters will have no cell_types
