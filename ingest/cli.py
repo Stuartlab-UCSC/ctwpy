@@ -4,7 +4,8 @@ cli exposed via flask
 import click
 from ingest.webapi import upload, read_credentials
 import ingest.scanpyapi as ad_obj
-import ingest.scanpy_ingest as scanpy_ingest
+from ingest.scanpy_ingest import scanpy_ingest
+from ingest.tsv_ingest import tsv_ingest
 import os
 
 
@@ -21,6 +22,16 @@ def from_scanpy(worksheet_name, scanpy_path, cluster_name,
     print("reading in data...")
     ad = ad_obj.readh5ad(scanpy_path)
     scanpy_ingest(ad, worksheet_name, cluster_name, celltype_key)
+
+
+@click.command(help="Add tsv files to the user file system")
+@click.argument('worksheet_name')
+@click.argument('input_dir_path')
+@click.option('--clustering_solution', default="louvain",
+              help="The the clustering solution used, defaults to 'louvain'.")
+def from_tsv(worksheet_name, input_dir_path, clustering_solution
+):
+    tsv_ingest(worksheet_name, input_dir_path, clustering_solution)
 
 
 @click.command(

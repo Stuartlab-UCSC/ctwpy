@@ -1,6 +1,9 @@
 # ctwpy
 Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas from a scanpy anndata
-object.
+object, or from tsv files.
+
+If you want to generate a worksheet from a seurat object, install the package, 
+Stuartlab-UCSC/ctw-seurat instead of this one.
 
 ### What is a Cell Type Worksheet?
 A Cell Type Worksheet is an application designed to ease the burden of manual cell type annotation from single cell
@@ -50,10 +53,15 @@ source env/bin/activate
 # Check out the help documentation:
 ctw-from-scanpy --help
 
+ctw-from-tsv --help
+
 ctw-upload --help
 
 # Create a Cell Type Worksheet formatted file from a scanpy object.
 ctw-from-scanpy worksheet-name dataset-filename.h5ad
+
+# Or create a Cell Type Worksheet formatted file from tsv files.
+ctw-from-tsv worksheet-name myTsvFileDir
 
 # Send the created Cell Type Worksheet to the UCSC Cell Atlas.
 ctw-upload worksheet-name.ctw.tgz credentials.json
@@ -63,6 +71,88 @@ To upload a worksheet to the server, you'll notice the credentials.json file is 
 [example](https://github.com/Stuartlab-UCSC/ctwpy/blob/master/credentials.json) for a starting
 place.
 
+### Preparing tsv files
+If you want to create a worksheet from tsv files rather than a scanpy object, those file formats
+are described here.
+
+The Cell Type Worksheet ingest tsv files consist of a minimum of 3 tab delimited files, and two 
+optional files:
+
+1. Expression Matrix
+
+|       gene       | AAACCTGCAAACTGTC | AAACCTGCAAGGGTCA | AAACCTGCAAGTAATG | ... |
+|:----------------:|:----------------:|------------------|------------------|-----|
+| TP53 |         0        | 0                | 0                | ... |
+| ALKBH6 |         1        | 0                | 1                | ... |
+| MYLH1 |         2        | 1                | 3                | ... |
+| TMNT2 |         0        | 4.5              | 0                | ... |
+| TTN |        3.4       | 0                | 2                | ... |
+
+
+     + File name is "exp.tsv"
+     + Gene names are rows, Cell IDs are columns
+     + Can be filtered down to genes of interest
+     
+2. Cell to Cluster Assignment
+
+|      cellids     | cluster |
+|:----------------:|:-------:|
+| AAACCTGCAAACTGTC |    1    |
+| AAACCTGCAAGGGTCA |    1    |
+| AAACCTGCAAGTAATG |    2    |
+| AAACCTGCACATAACC |    3    |
+| AAACCTGCAGACGCCT |    3    |
+
+     + File name is "clustering.tsv"
+     + First column contains cell IDs
+     + Second column contains cluster assignment
+     
+3. XY Coordinates
+
+|      cellids     |  x  | y   |
+|:----------------:|:---:|-----|
+| AAACCTGCAAACTGTC | 1.1 | 0.4 |
+| AAACCTGCAAGGGTCA | 1.5 | 0.8 |
+| AAACCTGCAAGTAATG | 2.2 | 3.2 |
+| AAACCTGCACATAACC | 3.3 | 4.5 |
+| AAACCTGCAGACGCCT | 3.4 | 4.7 |
+
+     + File name is "xys.tsv"
+     + First column contains cell IDs
+     + Second Column contains x coordinates
+     + Third Column contains y coordinates
+=     
+4. Gene Metrics Per Cluster (optional)
+
+|  gene  | t-statistic | pct.exp | avg.exp.scaled | ... | cluster |
+|:------:|:-----------:|---------|----------------|-----|---------|
+|  TP53  |     3.4     | 46      | 2.2            | ... | 1       |
+| ALKBH6 |    -0.86    | 0       | -0.1           | ... | 1       |
+|  TP53  |     -0.1    | 15.2    | -0.01          | ... | 2       |
+| ALKBH6 | 1.2         | 35      | 0.95           | ... | 2       |
+|  TP53  |     3.8     | 88.2    | 2.5            | ... | 3       |
+| ALKBH6 |     3.4     | 100     | 2.5            | ... | 3       |
+
+     + File name is "markers.tsv"
+     + First column contains genes
+     + Last column contains cluster IDs
+     + At least 2 columns in-between "gene" and "cluster", e.g. "avg.exp" and "pct.exp"
+     + If this file is omitted, gene metrics will be calculated from your data
+
+5. Cluster cell counts and cell types (optional)
+
+| cluster | cell_count | cell_type |
+|:--------:|:------------:|--------------------------------- ||
+| 1 |         5313 |         T-cell |
+| 2 |         2562 | |
+| ... | | |
+
+     + File name is "clusters.tsv"
+     + First column contains cluster IDs
+     + Last column contains cell types
+     + cell_type values are optional
+     + If this file is omitted, cell counts will be summed for you and clusters will have no cell_types
+     
 ### Contributors to ctwpy
 This repository should be kept in sync with its counterpart: ctw-seurat. There are two 
 repositories because ctw-seurat requires R to be installed before installing the package. 
@@ -72,6 +162,7 @@ The only files in the repositories that should differ:
  ```
  ingest/cli.py
  ingest/seurat_api.py (only exists in ctw-seurat)
+ ingest/tsv_ingest.py (only exists in ctwpy)
  README.md
  setup.py
 ``` 

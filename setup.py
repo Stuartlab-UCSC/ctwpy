@@ -13,6 +13,7 @@ setup(
         [console_scripts]
         ctw-scanpy-obs=ingest.cli:scanpy_obs
         ctw-from-scanpy=ingest.cli:from_scanpy
+        ctw-from-tsv=ingest.cli:from_tsv
         ctw-upload=ingest.cli:upload_worksheet
     ''',
 )
