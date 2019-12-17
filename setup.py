@@ -11,8 +11,8 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        ctw-scanpy-obs=ctwpy.cli:scanpy_obs
-        ctw-from-scanpy=ctwpy.cli:from_scanpy
-        ctw-upload=ctwpy.cli:upload_worksheet
+        ctw-scanpy-obs=ingest.cli:scanpy_obs
+        ctw-from-scanpy=ingest.cli:from_scanpy
+        ctw-upload=ingest.cli:upload_worksheet
     ''',
 )

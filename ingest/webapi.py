@@ -3,7 +3,7 @@ Functions for interacting with the UCSC Cell Atlas Workbench API.
 """
 import requests
 from bs4 import BeautifulSoup
-from ctwpy.io import read_json
+from ingest.io import read_json
 from requests_toolbelt.multipart import encoder
 import os
 from requests.exceptions import ConnectionError
