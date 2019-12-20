@@ -2,7 +2,10 @@
 Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas from a scanpy anndata
 object, or from tsv files.
 
-[TOC]
+## Table of Contents
+[What is a Cell Type Worksheet?](#What-is-a-cell-type-worksheet)
+[What is a Cell Type Worksheet?](#What-is-a-cell-type-worksheet?)
+[Requirements](#Requirements)
 
 If you want to generate a worksheet from a seurat object, install the package, 
 Stuartlab-UCSC/ctw-seurat instead of this one.
