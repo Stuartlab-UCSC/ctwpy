@@ -3,9 +3,18 @@ Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas from a scanpy an
 object, or from tsv files.
 
 ## Table of Contents
+
 [What is a Cell Type Worksheet?](#What-is-a-cell-type-worksheet)
-[What is a Cell Type Worksheet?](#What-is-a-cell-type-worksheet?)
-[Requirements](#Requirements)
+
+[Install](#Install)
+
+[Command Line Interface](#Command Line Interface)
+
+[Upload Data](#Upload Data)
+
+[Prepare TSV Files](#Prepare TSV Files)
+
+
 
 If you want to generate a worksheet from a seurat object, install the package, 
 Stuartlab-UCSC/ctw-seurat instead of this one.
@@ -27,10 +36,9 @@ Here's a rough visual of the layout of the application, the gene metrics are exp
 This python package manipulates a scanpy object or tsv files into the ctw format 
 and provides an avenue for uploading a worksheet to the UCSC Cell Atlas.
 
-## Requirements
-python3.4+[git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
-
 ## Install
+
+Requirements: python3.4+[git](https://gist.github.com/derhuerst/1b15ff4652a867391f03), [pip](https://pip.pypa.io/en/stable/installing/), and [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
 
 If you haven't done so already, head over to the [Cell Atlas registry](https://cellatlasapi.ucsc.edu/user/register)
 and make an account, remember to answer the confirmation email. You'll be using your email and password to upload
