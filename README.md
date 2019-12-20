@@ -8,11 +8,11 @@ object, or from tsv files.
 
 [Install](#Install)
 
-[Command Line Interface](#Command Line Interface)
+[Command Line Interface](#Command-Line-Interface)
 
-[Upload Data](#Upload Data)
+[Upload Data](#Upload-Data)
 
-[Prepare TSV Files](#Prepare TSV Files)
+[Prepare TSV Files](#Prepare-TSV-Files)
 
 
 
