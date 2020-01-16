@@ -1,9 +1,10 @@
 # ctwpy
 Generate and Upload Cell Type Worksheets to the UCSC Cell Atlas from a scanpy anndata
-object, or from tsv files. If you want to generate a worksheet from a seurat object, use this 
-instead:
+object, or from tsv files. If you want to generate a worksheet from a seurat object, use 
+[ctwseurat](https://github.com/Stuartlab-UCSC/ctwseurat) 
+instead.
 
-[ctwseurat](https://github.com/Stuartlab-UCSC/ctwseurat)
+
 
 
 ## Table of Contents
