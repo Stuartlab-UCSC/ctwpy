@@ -15,7 +15,6 @@ object, or from tsv files.
 [Prepare TSV Files](#Prepare-TSV-Files)
 
 
-
 If you want to generate a worksheet from a seurat object, install the package, 
 Stuartlab-UCSC/ctw-seurat instead of this one.
 
@@ -91,11 +90,6 @@ place.
 ## Prepare TSV Files
 If you want to create a worksheet from tsv files rather than a scanpy object, those file formats
 are described here.
-
-### Cell & Cluster TSVs
-
-These are used to upload data at the cell and cluster resolution rather than the
-cluster and mega-cluster resolution as described in the next section.
 
 The Cell Type Worksheet ingest tsv files consist of a minimum of 3 tab delimited files, and two 
 optional files:
@@ -175,101 +169,3 @@ optional files:
      + Last column contains cell types
      + cell_type values are optional
      + If this file is omitted, cell counts will be summed for you and clusters will have no cell_types
-
-### Cluster & Mega-Cluster TSVs
-
-These are used to upload data at the cluster and mega-cluster resolution rather than the
-cell and cluster resolution as the above formats.
-
-The Cell Type Worksheet ingest tsv files consist of a minimum of 3 tab delimited files, and two 
-optional files:
-
-1. Expression Matrix
-
-|       gene       | a | b | c | ... |
-|:----------------:|:----------------:|------------------|------------------|-----|
-| TP53 |         0        | 0                | 0                | ... |
-| ALKBH6 |         1        | 0                | 1                | ... |
-| MYLH1 |         2        | 1                | 3                | ... |
-| TMNT2 |         0        | 4.5              | 0                | ... |
-| TTN |        3.4       | 0                | 2                | ... |
-...
-
-     + File name is "exp.tsv"
-     + Gene names are rows, Cluster IDs are columns
-     + Can be filtered down to genes of interest
-     
-2. Cluster to Mega-Cluster Assignment
-
-|      cluster     | mega_cluster |
-|:----------------:|:-------:|
-| a |    1    |
-| b |    1    |
-| c |    2    |
-...
-
-     + File name is "clustering.tsv"
-     + First column contains cluster IDs
-     + Second column contains cluster assignment to mega-cluster
-     
-3. XY Coordinates
-
-|      cluster ids     |  x  | y   |
-|:----------------:|:---:|-----|
-| a | 1.1 | 0.4 |
-| b | 1.5 | 0.8 |
-| c | 2.2 | 3.2 |
-...
-
-     + File name is "xys.tsv"
-     + First column contains cluster IDs
-     + Second Column contains x coordinates
-     + Third Column contains y coordinates
-    
-4. Gene Metrics Per Mega-Cluster (optional)
-
-|  gene  | t-statistic | pct.exp | avg.exp.scaled | ... | mega_cluster |
-|:------:|:-----------:|---------|----------------|-----|---------|
-|  TP53  |     3.4     | 46      | 2.2            | ... | 1       |
-| ALKBH6 |    -0.86    | 0       | -0.1           | ... | 1       |
-|  TP53  |     -0.1    | 15.2    | -0.01          | ... | 2       |
-| ALKBH6 | 1.2         | 35      | 0.95           | ... | 2       |
-|  TP53  |     3.8     | 88.2    | 2.5            | ... | 3       |
-| ALKBH6 |     3.4     | 100     | 2.5            | ... | 3       |
-
-     + File name is "markers.tsv"
-     + First column contains genes
-     + Last column contains mega-cluster IDs
-     + At least 2 columns in-between "gene" and "cluster", e.g. "avg.exp" and "pct.exp"
-     + If this file is omitted, gene metrics will be calculated from your data
-
-5. Mega-Cluster Cluster Counts and Cell types (optional)
-
-| mega_cluster | cluster_count | cell_type |
-|:--------:|:------------:|--------------------------------- |
-| 1 |         5313 |         T-cell |
-| 2 |         2562 | |
-| ... | | |
-
-     + File name is "clusters.tsv"
-     + First column contains mega-cluster IDs
-     + Second column contains the cluster counts
-     + Last column contains cell types
-     + cell_type values are optional
-     + If this file is omitted, cluster counts will be summed for you and mega-clusters will have no cell_types
-
-6. Cluster Metadata
-
-| cluster | cell_count | cell_type | ... |
-|:--------:|:------------:|--------------------------------- |---|
-| a |         5313 |         T-cell | ... |
-| b |         2562 | | | ... |
-| c |         3453 | | | ... |
-| ... | | | ||
-
-     + File name is "clusterMeta.tsv"
-     + First column contains cluster IDs
-     + Second column contains the cell counts
-     + Third column contains cell types
-     + Any additional columns contain any other attributes wanted
-     + cell_type values are optional
