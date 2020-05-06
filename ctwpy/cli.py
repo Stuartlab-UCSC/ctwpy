@@ -5,7 +5,7 @@ import click
 from ctwingest.webapi import upload, read_credentials
 import ctwingest.scanpyapi as ad_obj
 from ctwingest.scanpy_ingest import scanpy_ingest
-from ingest.tsv_ingest import tsv_ingest
+from ctwpy.tsv_ingest import tsv_ingest
 import os
 
 
